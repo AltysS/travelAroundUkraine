@@ -26,7 +26,7 @@ const ErrorPage = () => {
           <Box src="./assets/images/404/heart.png" component="img" alt="uk-flag" />
         </Box>
         <Typography sx={{ mb: '40px' }} variant="h2">
-          404 not found
+          404 page not found
         </Typography>
         <Typography>Please, navigate to main page to plan your trip</Typography>
         <Box sx={{ mt: '40px' }}>
