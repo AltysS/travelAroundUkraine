@@ -196,17 +196,20 @@ const Footer = () => (
           <ContactsInfo>
             <Box>
               <SmartphoneOutlinedIcon sx={{ color: 'primary.contrastText' }} />
-              <MUILink href="tel:+380661482997">+38 (066) 148 29 97</MUILink>
+              <Typography component={MUILink} href="tel:+380661482997">
+                +38 (066) 148 29 97
+              </Typography>
             </Box>
             <Box>
               <LocationOnOutlinedIcon sx={{ color: 'primary.contrastText' }} />
-              <MUILink
+              <Typography
+                component={MUILink}
                 rel="noreferrer"
                 target="_blank"
                 href="https://www.google.com.ua/maps/place/%D0%9C%D0%B0%D1%80%D0%B8%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9+%D0%B4%D0%B2%D0%BE%D1%80%D0%B5%D1%86/@50.4438071,30.544801,15.25z/data=!4m5!3m4!1s0x40d4cfad45d00d9d:0xed19f61774e5a260!8m2!3d50.4483553!4d30.5376094?hl=ru"
               >
                 Mariinsky palace, Kyiv, Ukraine
-              </MUILink>
+              </Typography>
             </Box>
             <Box>
               <TimerOutlinedIcon />
@@ -251,9 +254,9 @@ const Footer = () => (
           <NavigationList>
             {navigationMenu.map((el) => (
               <li key={el.name}>
-                <Link onClick={() => scrollToTop('smooth')} to={el.path}>
+                <Typography component={Link} onClick={() => scrollToTop('smooth')} to={el.path}>
                   {el.name}
-                </Link>
+                </Typography>
               </li>
             ))}
           </NavigationList>
