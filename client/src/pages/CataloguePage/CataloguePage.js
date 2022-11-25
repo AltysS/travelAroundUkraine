@@ -72,21 +72,23 @@ const CataloguePage = () => {
                 <CatalogMainFilter />
               </FilterContainer>
             </Grid>
+            <Box sx={{ display: 'flex', justifyContent: 'center', pt: '50px' }}>
+              <Pagination
+                hidePrevButton
+                hideNextButton
+                count={Math.round(products.length / 10)}
+                color="primary"
+                page={currentPage}
+                onChange={(_, num) => {
+                  setCurrentPage(num);
+                  lastItemIndex = currentPage * countriesPerPage;
+                  firstItemIndex = lastItemIndex - countriesPerPage;
+                  currentItems = products.slice(firstItemIndex, lastItemIndex);
+                  scrollToTop();
+                }}
+              />
+            </Box>
           </Container>
-          <Box sx={{ display: 'flex', justifyContent: 'center', pt: '50px' }}>
-            <Pagination
-              count={Math.round(products.length / 10)}
-              color="primary"
-              page={currentPage}
-              onChange={(_, num) => {
-                setCurrentPage(num);
-                lastItemIndex = currentPage * countriesPerPage;
-                firstItemIndex = lastItemIndex - countriesPerPage;
-                currentItems = products.slice(firstItemIndex, lastItemIndex);
-                scrollToTop();
-              }}
-            />
-          </Box>
         </Box>
       ) : (
         <Typography variant="h2" sx={{ paddingTop: '400px', paddingBottom: '400px', textAlign: 'center' }}>
