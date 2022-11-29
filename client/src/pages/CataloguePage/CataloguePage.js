@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { styled, Stack, Box, Container, Typography } from '@mui/material';
+import { styled, Stack, Box, Container, Typography, Pagination } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { CatalogTourCard, CatalogMainSection, CatalogMainFilter } from '../../features/Catalogue/components';
 import { getProducts, setIsLoading } from '../../store/slices/catalogueSlice/catalogueSlice';
+import scrollToTop from '../../layout/utils/scrollToTop';
 
 const FilterContainer = styled((props) => <Grid item xs={12} {...props} />)(({ theme }) => ({
   backgroundColor: theme.palette.primary.contrastText,
@@ -22,6 +23,11 @@ const CataloguePage = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.catalogue.products, shallowEqual);
   const isLoading = useSelector((state) => state.catalogue.isLoading);
+  const [currentPage, setCurrentPage] = useState(1);
+  const countriesPerPage = 10;
+  let lastItemIndex = currentPage * countriesPerPage;
+  let firstItemIndex = lastItemIndex - countriesPerPage;
+  let currentItems = products.slice(firstItemIndex, lastItemIndex);
   useEffect(() => {
     if (products.length <= 0) {
       dispatch(setIsLoading(true));
@@ -42,7 +48,7 @@ const CataloguePage = () => {
                   Tours
                 </Typography>
                 <Stack spacing={2}>
-                  {products.map(({ name, currentPrice, duration, description, imageUrls, _id }) => (
+                  {currentItems.map(({ name, currentPrice, duration, description, imageUrls, _id }) => (
                     <CatalogTourCard
                       key={_id}
                       name={name}
@@ -59,6 +65,20 @@ const CataloguePage = () => {
               </FilterContainer>
             </Grid>
           </Container>
+          <Box sx={{ display: 'flex', justifyContent: 'center', pt: '50px' }}>
+            <Pagination
+              count={Math.round(products.length / 10)}
+              color="primary"
+              page={currentPage}
+              onChange={(_, num) => {
+                setCurrentPage(num);
+                lastItemIndex = currentPage * countriesPerPage;
+                firstItemIndex = lastItemIndex - countriesPerPage;
+                currentItems = products.slice(firstItemIndex, lastItemIndex);
+                scrollToTop();
+              }}
+            />
+          </Box>
         </Box>
       ) : (
         <Typography variant="h2" sx={{ paddingTop: '400px', paddingBottom: '400px', textAlign: 'center' }}>
