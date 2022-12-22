@@ -11,6 +11,7 @@ const cartSlice = createSlice({
   initialState: {
     data: [],
     isLoading: false,
+    count: 0,
   },
   reducers: {
     // the next reducers deals with 2 types of payload type, where array or object, maybe refactoring is needed by splitting reducers and creating a second reducer to deal with local cart data
@@ -32,6 +33,8 @@ const cartSlice = createSlice({
           localStorage.setItem('cart', JSON.stringify(state.data));
         }
       }
+
+      state.count = state.data.reduce((total, cur) => total + cur.cartQuantity, 0);
     },
 
     // the next 2 reducers have repeated code, to be refactored...
@@ -39,6 +42,7 @@ const cartSlice = createSlice({
     decreaseProductFromLocal: (state, action) => {
       const index = state.data.findIndex((item) => item.product._id === action.payload);
       state.data[index].cartQuantity -= 1;
+      state.count -= 1;
       localStorage.setItem('cart', JSON.stringify(state.data));
     },
 

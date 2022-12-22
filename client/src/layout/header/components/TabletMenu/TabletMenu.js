@@ -3,8 +3,8 @@ import { Typography, Box } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import PersonIcon from '@mui/icons-material/Person';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { setIsModalOpen } from '../../../../store/slices/userSlice/userSlice';
+import CartIcon from '../CartIcon/CartIcon';
 
 const loggedPages = [
   {
@@ -26,7 +26,7 @@ const loggedPages = [
   {
     name: 'cart',
     link: '/cart',
-    innerContent: <ShoppingCartIcon fontSize="medium" />,
+    innerContent: <CartIcon />,
   },
   {
     name: 'account',
@@ -59,7 +59,7 @@ const unloggedPages = [
   {
     name: 'cart',
     link: '/cart',
-    innerContent: <ShoppingCartIcon fontSize="medium" />,
+    innerContent: <CartIcon />,
   },
 ];
 
