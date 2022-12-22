@@ -1,8 +1,12 @@
 /* eslint-disable  react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Container, useScrollTrigger, Slide } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
 import { BurgerMenu, TabletMenu, LogoHeader, HeaderSearchField } from '..';
 import { LogOutModal } from '../../../../components';
+import { fetchCart } from '../../../../store/slices/cartSlice/cartSlice';
+
+import calcToursQuantityAndPrice from '../../../../features/Cart/utils/calcToursQuantityAndPrice';
 
 const HideOnScroll = ({ children }) => {
   const trigger = useScrollTrigger();
@@ -14,9 +18,21 @@ const HideOnScroll = ({ children }) => {
 };
 
 const Header = () => {
+  const dispatch = useDispatch();
   const [scrollY, setScrollY] = useState();
+  const cart = useSelector((store) => store.cart.data);
+  const isLogin = useSelector((store) => store.userReducer.isLogin);
+
+  let count;
+
+  if (cart.length) {
+    const { toursQuantity } = calcToursQuantityAndPrice(cart);
+    count = toursQuantity;
+  }
 
   useEffect(() => {
+    dispatch(fetchCart(isLogin));
+
     const handleScrollY = () => setScrollY(window.scrollY);
     document.addEventListener('scroll', handleScrollY);
 
@@ -38,8 +54,8 @@ const Header = () => {
           <Toolbar disableGutters>
             <LogoHeader />
             <HeaderSearchField />
-            <BurgerMenu />
-            <TabletMenu />
+            <BurgerMenu count={count} />
+            <TabletMenu count={count} />
             <LogOutModal />
           </Toolbar>
         </Container>

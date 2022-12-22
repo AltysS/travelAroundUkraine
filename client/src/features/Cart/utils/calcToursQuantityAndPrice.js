@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const calcToursQuantityAndPrice = (cart) => {
   if (cart.length) {
     const toursQuantity = cart.map(({ cartQuantity }) => cartQuantity).reduce((total, num) => total + num);

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import { Typography, Box } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -83,7 +84,7 @@ const typograpySX = (link, pathname) => ({
   },
 });
 
-const TabletMenu = () => {
+const TabletMenu = ({ count }) => {
   const location = useLocation();
   const { isLogin } = useSelector((store) => store.userReducer);
 
@@ -106,8 +107,17 @@ const TabletMenu = () => {
           {innerContent}
         </Typography>
       ))}
+      <span>{count}</span>
     </Box>
   );
 };
 
-export default TabletMenu;
+TabletMenu.propTypes = {
+  count: PropTypes.number,
+};
+
+TabletMenu.defaultProps = {
+  count: 0,
+};
+
+export default memo(TabletMenu);
