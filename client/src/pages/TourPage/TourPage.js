@@ -26,11 +26,11 @@ import { fetchTour } from '../../store/slices/tourSlice/tourSlice';
 import { TourAccordion, TourInfoDialog, TourReasonToChoose, ImageGallery } from '../../features/Tour/components';
 
 const sections = [
-  { title: 'About us', link: '#about-tour' },
+  { title: 'About tour', link: '#about-tour' },
   { title: 'Reasons to choose', link: '#reasons-to-choose' },
-  { title: 'What is included?', link: '#included' },
 ];
 
+// TODO: make dates come from server instead of placeholders
 const dates = { beginDate: new Date('2022-02-01'), endDate: new Date('2022-02-25') };
 
 const HeaderContent = styled(Box)(({ theme }) => ({
